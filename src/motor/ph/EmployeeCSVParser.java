@@ -1,15 +1,21 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * EmployeeCSVParser.java
+ * 
+ * This class is responsible for parsing employee data from a CSV file and creating Employee objects.
  */
 package motor.ph;
 
 /**
- *
- * @author lasic
+ * The EmployeeCSVParser class provides a method to parse employee data from a CSV file.
  */
 public class EmployeeCSVParser {
-    //Class to Parse Employee Data from CSV
+    
+    /**
+     * Parses an employee record from a CSV file and returns an Employee object.
+     * 
+     * @param data An array of strings representing an employee's data.
+     * @return An Employee object if parsing is successful; otherwise, null.
+     */
     public static Employee parseEmployee(String[] data) {
         try {
             int employeeId = Integer.parseInt(data[0].trim());
@@ -41,5 +47,3 @@ public class EmployeeCSVParser {
         }
     }
 }
-
-

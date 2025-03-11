@@ -1,40 +1,80 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * GovernmentDeduction.java
+ * 
+ * This class calculates and stores government-mandated deductions for an employee, 
+ * including SSS, Pag-IBIG, and PhilHealth, based on their gross income.
  */
 package motor.ph;
 
+/**
+ * The GovernmentDeduction class computes government-mandated deductions 
+ * (SSS, Pag-IBIG, and PhilHealth) based on an employee's gross income.
+ */
 public class GovernmentDeduction {
+    
+    /** The SSS deduction amount. */
     private double sssDeduction;
+    
+    /** The Pag-IBIG deduction amount. */
     private double pagIbigDeduction;
+    
+    /** The PhilHealth deduction amount. */
     private double philHealthDeduction;
 
-    // Constructor
+    /**
+     * Constructs a GovernmentDeduction object and calculates deductions 
+     * based on the provided gross income.
+     * 
+     * @param grossIncome The employee's gross income.
+     */
     public GovernmentDeduction(double grossIncome) {
         this.sssDeduction = calculateSSS(grossIncome);
         this.pagIbigDeduction = calculatePagIbig(grossIncome);
         this.philHealthDeduction = calculatePhilHealth(grossIncome);
     }
 
-    // Get individual deductions
+    /**
+     * Gets the computed SSS deduction.
+     * 
+     * @return The SSS deduction amount.
+     */
     public double getSSS() {
         return sssDeduction;
     }
 
+    /**
+     * Gets the computed Pag-IBIG deduction.
+     * 
+     * @return The Pag-IBIG deduction amount.
+     */
     public double getPagIbig() {
         return pagIbigDeduction;
     }
 
+    /**
+     * Gets the computed PhilHealth deduction.
+     * 
+     * @return The PhilHealth deduction amount.
+     */
     public double getPhilHealth() {
         return philHealthDeduction;
     }
 
-    // Compute total deductions
+    /**
+     * Computes the total government deductions (SSS, Pag-IBIG, and PhilHealth).
+     * 
+     * @return The total deductions amount.
+     */
     public double getTotalDeductions() {
         return sssDeduction + pagIbigDeduction + philHealthDeduction;
     }
 
-    // Static methods for deduction calculations
+    /**
+     * Calculates the SSS deduction based on the gross salary using predefined contribution brackets.
+     * 
+     * @param grossSalary The employee's gross salary.
+     * @return The computed SSS deduction amount.
+     */
     public static double calculateSSS(double grossSalary) {
         if (grossSalary <= 3250) return 135;
         else if (grossSalary <= 3750) return 157.50;
@@ -83,15 +123,27 @@ public class GovernmentDeduction {
         else return 1125;
     }
 
+    /**
+     * Calculates the Pag-IBIG contribution, which is 2% of the gross pay 
+     * but capped at a maximum of 100.
+     * 
+     * @param grossPay The employee's gross pay.
+     * @return The computed Pag-IBIG contribution amount.
+     */
     public static double calculatePagIbig(double grossPay) {
         return Math.min(grossPay * 0.02, 100);
     }
 
+    /**
+     * Calculates the PhilHealth contribution based on the employee's gross income.
+     * 
+     * - If the gross income is 10,000 or below, the fixed rate is 300.
+     * - Otherwise, the contribution is 3% of the gross income, capped at a maximum of 900.
+     * 
+     * @param grossIncome The employee's gross income.
+     * @return The computed PhilHealth contribution amount.
+     */
     public static double calculatePhilHealth(double grossIncome) {
         return (grossIncome <= 10000) ? 300 : Math.min((grossIncome * 0.03) / 2, 900);
     }
 }
-
-
-
-

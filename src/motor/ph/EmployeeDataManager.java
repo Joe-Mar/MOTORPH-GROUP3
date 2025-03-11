@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class EmployeeDataManager {
     //Class That Handles EMPLOYEE CSV FILE & DATA
-    private static final String FILE_NAME = "C:\\Users\\lasic\\OneDrive\\Documents\\NetBeansProjects\\MOTOR-PH\\build\\classes\\motor\\resources\\employee-data.csv";
+    private static final String FILE_NAME = "C:\\Users\\Nia\\Downloads\\MOTORPH-GROUP3-master\\MOTORPH-GROUP3-master\\src\\motor\\resources\\employee-data.csv";
 
     public static List<Employee> readFromCSV() {
         List<Employee> employeeList = new ArrayList<>();

@@ -1,25 +1,70 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Employee.java
+ * 
+ * This class represents an Employee entity that extends the BaseEntity class.
+ * It stores personal, employment, and financial information of an employee.
  */
 package motor.ph;
 
 import java.util.List;
 
+/**
+ * The Employee class encapsulates details of an employee, including personal,
+ * employment, and financial information.
+ */
 public class Employee extends BaseEntity {
-    //SubClass of BaseEntity
+    
+    /** The employee's birthdate. */
     private String birthday;
+    
+    /** The employee's residential address. */
     private String address;
+    
+    /** The employee's contact number. */
     private String phoneNumber;
+    
+    /** The employee's SSS (Social Security System) number. */
     private String sss;
+    
+    /** The employee's PhilHealth number. */
     private String philhealth;
+    
+    /** The employee's TIN (Tax Identification Number). */
     private String tin;
+    
+    /** The employee's Pag-IBIG membership number. */
     private String pagibig;
+    
+    /** The employment status of the employee (e.g., Regular, Probationary). */
     private String status;
+    
+    /** The employee's job position. */
     private String position;
+    
+    /** The name of the employee's immediate supervisor. */
     private String immediateSupervisor;
-    private EmployeeFinancials financials; // Stores salary-related data
+    
+    /** Stores salary and financial-related details of the employee. */
+    private EmployeeFinancials financials;
 
+    /**
+     * Constructs an Employee object with the specified details.
+     *
+     * @param employeeId The unique ID of the employee.
+     * @param lastName The last name of the employee.
+     * @param firstName The first name of the employee.
+     * @param birthday The employee's birthdate.
+     * @param address The employee's residential address.
+     * @param phoneNumber The employee's contact number.
+     * @param sss The employee's SSS number.
+     * @param philhealth The employee's PhilHealth number.
+     * @param tin The employee's TIN number.
+     * @param pagibig The employee's Pag-IBIG number.
+     * @param status The employment status of the employee.
+     * @param position The job position of the employee.
+     * @param immediateSupervisor The immediate supervisor of the employee.
+     * @param financials The financial details of the employee.
+     */
     public Employee(int employeeId, String lastName, String firstName, String birthday, String address,
                     String phoneNumber, String sss, String philhealth, String tin, String pagibig,
                     String status, String position, String immediateSupervisor, EmployeeFinancials financials) {
@@ -50,7 +95,9 @@ public class Employee extends BaseEntity {
     public String getImmediateSupervisor() { return immediateSupervisor; }
     public EmployeeFinancials getFinancials() { return financials; }
     
-// This is How it Will Print on Main
+    /**
+     * Prints the details of the employee, including personal and financial information.
+     */
     @Override
     public void printDetails() {
         System.out.println("\nEmployee ID: " + employeeId);

@@ -1,12 +1,13 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * EmployeeFinancials.java
+ * 
+ * This class represents the financial details of an employee, including salary, allowances, 
+ * and methods for computing various financial aspects based on payroll type.
  */
 package motor.ph;
 
 /**
- *
- * @author lasic
+ * The EmployeeFinancials class stores and manages salary-related data for an employee.
  */
 public class EmployeeFinancials {
     private double basicSalary;
@@ -16,6 +17,16 @@ public class EmployeeFinancials {
     private double grossSemiMonthlyRate;
     private double hourlyRate;
 
+    /**
+     * Constructs an EmployeeFinancials object with specified financial details.
+     *
+     * @param basicSalary The basic salary of the employee.
+     * @param riceSubsidy The monthly rice subsidy allowance.
+     * @param phoneAllowance The monthly phone allowance.
+     * @param clothingAllowance The monthly clothing allowance.
+     * @param grossSemiMonthlyRate The semi-monthly gross salary.
+     * @param hourlyRate The hourly rate of the employee.
+     */
     public EmployeeFinancials(double basicSalary, double riceSubsidy, double phoneAllowance, double clothingAllowance,
                               double grossSemiMonthlyRate, double hourlyRate) {
         this.basicSalary = basicSalary;
@@ -26,7 +37,7 @@ public class EmployeeFinancials {
         this.hourlyRate = hourlyRate;
     }
 
-    // Getters
+    // Getters for financial details
     public double getBasicSalary() { return basicSalary; }
     public double getRiceSubsidy() { return riceSubsidy; }
     public double getPhoneAllowance() { return phoneAllowance; }
@@ -34,12 +45,22 @@ public class EmployeeFinancials {
     public double getGrossSemiMonthlyRate() { return grossSemiMonthlyRate; }
     public double getHourlyRate() { return hourlyRate; }
 
-    // Compute total allowances
+    /**
+     * Computes the total monthly allowances.
+     * 
+     * @return The sum of rice subsidy, phone allowance, and clothing allowance.
+     */
     public double getTotalAllowances() {
         return riceSubsidy + phoneAllowance + clothingAllowance;
     }
 
-    // Compute prorated total allowances
+    /**
+     * Computes the prorated total allowance based on the number of workdays.
+     *
+     * @param totalWorkDays The total number of working days in a month.
+     * @param workDays The actual number of days worked.
+     * @return The prorated allowance amount.
+     */
     public double getProratedTotalAllowance(long totalWorkDays, long workDays) {
         double totalMonthlyAllowance = riceSubsidy + phoneAllowance + clothingAllowance;
         if (totalWorkDays > 0) {
@@ -48,7 +69,12 @@ public class EmployeeFinancials {
         return 0;
     }
 
-    // Compute allowance based on payroll type (weekly, semi-monthly, monthly)
+    /**
+     * Computes the allowance based on the payroll type.
+     *
+     * @param payrollType The payroll type (weekly, semi-monthly, or monthly).
+     * @return The computed allowance based on the payroll type.
+     */
     public double computeAllowance(String payrollType) {
         double rice, phone, clothing;
 
@@ -74,6 +100,9 @@ public class EmployeeFinancials {
         return rice + phone + clothing;
     }
 
+    /**
+     * Prints the financial details of the employee.
+     */
     public void printFinancialDetails() {
         System.out.println("Basic Salary: " + basicSalary);
         System.out.println("Rice Subsidy: " + riceSubsidy);
@@ -83,5 +112,3 @@ public class EmployeeFinancials {
         System.out.println("Hourly Rate: " + hourlyRate);
     }
 }
-
-

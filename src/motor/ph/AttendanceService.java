@@ -1,6 +1,8 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * AttendanceService.java
+ * 
+ * This class provides services related to employee attendance,
+ * including viewing attendance records based on employee ID.
  */
 package motor.ph;
 
@@ -8,11 +10,16 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- *
- * @author lasic
+ * The AttendanceService class handles operations related to employee attendance records.
+ * It provides a method to view attendance records by employee ID.
  */
 public class AttendanceService {
-    //Method Use to View and Scan the Attendance on Main Class
+    
+    /**
+     * Displays the attendance records for a given employee ID.
+     * 
+     * @param scanner A Scanner object for user input.
+     */
     public static void viewAttendance(Scanner scanner) {
         System.out.print("Enter Employee ID: ");
         int searchEmployeeId = scanner.nextInt();
@@ -31,4 +38,3 @@ public class AttendanceService {
         }
     }
 }
-
