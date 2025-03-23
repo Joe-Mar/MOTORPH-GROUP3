@@ -6,18 +6,22 @@
 package motor.ph;
 
 /**
- * The EmployeeCSVParser class provides a method to parse employee data from a CSV file.
+ *
+ * @author lasic
+ /**
+ * Parses employee data from a CSV file and converts it into an Employee object.
  */
 public class EmployeeCSVParser {
-    
+
     /**
-     * Parses an employee record from a CSV file and returns an Employee object.
+     * Converts a CSV row (as a string array) into an Employee object.
      * 
-     * @param data An array of strings representing an employee's data.
-     * @return An Employee object if parsing is successful; otherwise, null.
+     * @param data A string array containing employee details from the CSV file.
+     * @return An Employee object if parsing is successful, otherwise null.
      */
     public static Employee parseEmployee(String[] data) {
         try {
+            // Extracting employee details from CSV data
             int employeeId = Integer.parseInt(data[0].trim());
             String lastName = data[1].trim();
             String firstName = data[2].trim();
@@ -31,7 +35,8 @@ public class EmployeeCSVParser {
             String status = data[10].trim();
             String position = data[11].trim();
             String immediateSupervisor = data[12].trim();
-            
+
+            // Parsing financial details while handling formatting issues
             double basicSalary = Double.parseDouble(data[13].replace("\"", "").replace(",", "").trim());
             double riceSubsidy = Double.parseDouble(data[14].replace("\"", "").replace(",", "").trim());
             double phoneAllowance = Double.parseDouble(data[15].replace("\"", "").replace(",", "").trim());
@@ -39,9 +44,20 @@ public class EmployeeCSVParser {
             double grossSemiMonthlyRate = Double.parseDouble(data[17].replace("\"", "").replace(",", "").trim());
             double hourlyRate = Double.parseDouble(data[18].replace("\"", "").replace(",", "").trim());
 
-            EmployeeFinancials financials = new EmployeeFinancials(basicSalary, riceSubsidy, phoneAllowance, clothingAllowance, grossSemiMonthlyRate, hourlyRate);
-            return new Employee(employeeId, lastName, firstName, birthday, address, phoneNumber, sss, philhealth, tin, pagibig, status, position, immediateSupervisor, financials);
+            // Creating an EmployeeFinancials object
+            EmployeeFinancials financials = new EmployeeFinancials(
+                basicSalary, riceSubsidy, phoneAllowance, clothingAllowance, 
+                grossSemiMonthlyRate, hourlyRate
+            );
+
+            // Returning the Employee object
+            return new Employee(
+                employeeId, lastName, firstName, birthday, address, phoneNumber,
+                sss, philhealth, tin, pagibig, status, position, immediateSupervisor, financials
+            );
+
         } catch (NumberFormatException e) {
+            // Handles errors when parsing numbers from CSV
             System.out.println("Error parsing employee data: " + e.getMessage());
             return null;
         }
