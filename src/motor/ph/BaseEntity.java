@@ -7,26 +7,27 @@
 package motor.ph;
 
 /**
- * The BaseEntity class is an abstract class that defines common attributes and behavior
- * for all entities related to employees.
+ *
+ * @author lasic
+ */
+/**
+ * BaseEntity is an abstract class that serves as a blueprint for all employee-related entities.
+ * It holds basic employee details and enforces a print method in all subclasses.
  */
 public abstract class BaseEntity {
-    
-    /** The unique ID of the employee. */
+    // Stores the Employee ID
     protected int employeeId;
-    
-    /** The last name of the employee. */
+    // Stores the Employee's Last Name
     protected String lastName;
-    
-    /** The first name of the employee. */
+    // Stores the Employee's First Name
     protected String firstName;
 
     /**
-     * Constructs a BaseEntity object with the specified employee details.
-     * 
-     * @param employeeId The unique ID of the employee.
-     * @param lastName The last name of the employee.
-     * @param firstName The first name of the employee.
+     * Constructor to initialize employee details.
+     *
+     * @param employeeId Unique ID of the employee.
+     * @param lastName   Employee's last name.
+     * @param firstName  Employee's first name.
      */
     public BaseEntity(int employeeId, String lastName, String firstName) {
         this.employeeId = employeeId;
@@ -35,34 +36,36 @@ public abstract class BaseEntity {
     }
 
     /**
-     * Gets the employee ID.
-     * 
-     * @return The employee's ID.
+     * Gets the Employee ID.
+     *
+     * @return Employee ID.
      */
     public int getEmployeeId() {
         return employeeId;
     }
 
     /**
-     * Gets the last name of the employee.
-     * 
-     * @return The last name of the employee.
+     * Gets the Last Name of the Employee.
+     *
+     * @return Employee's last name.
      */
     public String getLastName() {
         return lastName;
     }
 
     /**
-     * Gets the first name of the employee.
-     * 
-     * @return The first name of the employee.
+     * Gets the First Name of the Employee.
+     *
+     * @return Employee's first name.
      */
     public String getFirstName() {
         return firstName;
     }
 
     /**
-     * Abstract method that must be implemented by subclasses to print entity-specific details.
+     * Abstract method that must be implemented by subclasses.
+     * Each entity (like AttendanceRecord) will define its own way of displaying details.
      */
     public abstract void printDetails();
 }
+
