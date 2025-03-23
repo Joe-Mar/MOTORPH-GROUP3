@@ -7,23 +7,16 @@
 package motor.ph;
 
 /**
- * The GovernmentDeduction class computes government-mandated deductions 
- * (SSS, Pag-IBIG, and PhilHealth) based on an employee's gross income.
+ * Represents government-mandated deductions for an employee, 
+ * including SSS, Pag-IBIG, and PhilHealth contributions.
  */
 public class GovernmentDeduction {
-    
-    /** The SSS deduction amount. */
     private double sssDeduction;
-    
-    /** The Pag-IBIG deduction amount. */
     private double pagIbigDeduction;
-    
-    /** The PhilHealth deduction amount. */
     private double philHealthDeduction;
 
     /**
-     * Constructs a GovernmentDeduction object and calculates deductions 
-     * based on the provided gross income.
+     * Constructor that calculates all government deductions based on gross income.
      * 
      * @param grossIncome The employee's gross income.
      */
@@ -33,115 +26,70 @@ public class GovernmentDeduction {
         this.philHealthDeduction = calculatePhilHealth(grossIncome);
     }
 
-    /**
-     * Gets the computed SSS deduction.
-     * 
-     * @return The SSS deduction amount.
-     */
+    // Getters for individual deductions
     public double getSSS() {
         return sssDeduction;
     }
 
-    /**
-     * Gets the computed Pag-IBIG deduction.
-     * 
-     * @return The Pag-IBIG deduction amount.
-     */
     public double getPagIbig() {
         return pagIbigDeduction;
     }
 
-    /**
-     * Gets the computed PhilHealth deduction.
-     * 
-     * @return The PhilHealth deduction amount.
-     */
     public double getPhilHealth() {
         return philHealthDeduction;
     }
 
     /**
-     * Computes the total government deductions (SSS, Pag-IBIG, and PhilHealth).
+     * Computes the total government deductions.
      * 
-     * @return The total deductions amount.
+     * @return The sum of SSS, Pag-IBIG, and PhilHealth deductions.
      */
     public double getTotalDeductions() {
         return sssDeduction + pagIbigDeduction + philHealthDeduction;
     }
 
     /**
-     * Calculates the SSS deduction based on the gross salary using predefined contribution brackets.
+     * Computes the SSS deduction based on the employee's gross salary.
      * 
      * @param grossSalary The employee's gross salary.
-     * @return The computed SSS deduction amount.
+     * @return The SSS deduction amount.
      */
     public static double calculateSSS(double grossSalary) {
-        if (grossSalary <= 3250) return 135;
-        else if (grossSalary <= 3750) return 157.50;
-        else if (grossSalary <= 4250) return 180;
-        else if (grossSalary <= 4750) return 202.50;
-        else if (grossSalary <= 5250) return 225;
-        else if (grossSalary <= 5750) return 247.50;
-        else if (grossSalary <= 6250) return 270;
-        else if (grossSalary <= 6750) return 292.50;
-        else if (grossSalary <= 7250) return 315;
-        else if (grossSalary <= 7750) return 337.50;
-        else if (grossSalary <= 8250) return 360;
-        else if (grossSalary <= 8750) return 382.50;
-        else if (grossSalary <= 9250) return 405;
-        else if (grossSalary <= 9750) return 427.50;
-        else if (grossSalary <= 10250) return 450;
-        else if (grossSalary <= 10750) return 472.50;
-        else if (grossSalary <= 11250) return 495;
-        else if (grossSalary <= 11750) return 517.50;
-        else if (grossSalary <= 12250) return 540;
-        else if (grossSalary <= 12750) return 562.50;
-        else if (grossSalary <= 13250) return 585;
-        else if (grossSalary <= 13750) return 607.50;
-        else if (grossSalary <= 14250) return 630;
-        else if (grossSalary <= 14750) return 652.50;
-        else if (grossSalary <= 15250) return 675;
-        else if (grossSalary <= 15750) return 697.50;
-        else if (grossSalary <= 16250) return 720;
-        else if (grossSalary <= 16750) return 742.50;
-        else if (grossSalary <= 17250) return 765;
-        else if (grossSalary <= 17750) return 787.50;
-        else if (grossSalary <= 18250) return 810;
-        else if (grossSalary <= 18750) return 832.50;
-        else if (grossSalary <= 19250) return 855;
-        else if (grossSalary <= 19750) return 877.50;
-        else if (grossSalary <= 20250) return 900;
-        else if (grossSalary <= 20750) return 922.50;
-        else if (grossSalary <= 21250) return 945;
-        else if (grossSalary <= 21750) return 967.50;
-        else if (grossSalary <= 22250) return 990;
-        else if (grossSalary <= 22750) return 1012.50;
-        else if (grossSalary <= 23250) return 1035;
-        else if (grossSalary <= 23750) return 1057.50;
-        else if (grossSalary <= 24250) return 1080;
-        else if (grossSalary <= 24750) return 1102.50;
-        else return 1125;
+        double[][] sssTable = {
+            {3250, 135}, {3750, 157.50}, {4250, 180}, {4750, 202.50}, {5250, 225}, 
+            {5750, 247.50}, {6250, 270}, {6750, 292.50}, {7250, 315}, {7750, 337.50}, 
+            {8250, 360}, {8750, 382.50}, {9250, 405}, {9750, 427.50}, {10250, 450}, 
+            {10750, 472.50}, {11250, 495}, {11750, 517.50}, {12250, 540}, {12750, 562.50}, 
+            {13250, 585}, {13750, 607.50}, {14250, 630}, {14750, 652.50}, {15250, 675}, 
+            {15750, 697.50}, {16250, 720}, {16750, 742.50}, {17250, 765}, {17750, 787.50}, 
+            {18250, 810}, {18750, 832.50}, {19250, 855}, {19750, 877.50}, {20250, 900}, 
+            {20750, 922.50}, {21250, 945}, {21750, 967.50}, {22250, 990}, {22750, 1012.50}, 
+            {23250, 1035}, {23750, 1057.50}, {24250, 1080}, {24750, 1102.50}
+        };
+
+        for (double[] bracket : sssTable) {
+            if (grossSalary <= bracket[0]) {
+                return bracket[1];
+            }
+        }
+        return 1125; // Maximum SSS deduction for salaries above 24750
     }
 
     /**
-     * Calculates the Pag-IBIG contribution, which is 2% of the gross pay 
-     * but capped at a maximum of 100.
+     * Computes the Pag-IBIG deduction based on the employee's gross pay.
      * 
      * @param grossPay The employee's gross pay.
-     * @return The computed Pag-IBIG contribution amount.
+     * @return The Pag-IBIG deduction amount.
      */
     public static double calculatePagIbig(double grossPay) {
         return Math.min(grossPay * 0.02, 100);
     }
 
     /**
-     * Calculates the PhilHealth contribution based on the employee's gross income.
-     * 
-     * - If the gross income is 10,000 or below, the fixed rate is 300.
-     * - Otherwise, the contribution is 3% of the gross income, capped at a maximum of 900.
+     * Computes the PhilHealth deduction based on the employee's gross income.
      * 
      * @param grossIncome The employee's gross income.
-     * @return The computed PhilHealth contribution amount.
+     * @return The PhilHealth deduction amount.
      */
     public static double calculatePhilHealth(double grossIncome) {
         return (grossIncome <= 10000) ? 300 : Math.min((grossIncome * 0.03) / 2, 900);
