@@ -18,30 +18,33 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * The WorkHoursService class handles file reading, date validation, and work hours retrieval.
- * It reads attendance data from a CSV file and allows querying employee work hours.
+ *
+ * @author lasic
  */
 public class WorkHoursService {
+    // Path to the CSV file containing attendance records
+    private static final String FILE_NAME = "C:\\Users\\lasic\\OneDrive\\Documents\\NetBeansProjects\\MOTOR-PH\\build\\classes\\motor\\resources\\attendance_data.csv";
     
-    private static final String FILE_NAME = "C:\\Users\\Nia\\Downloads\\MOTORPH-GROUP3-master\\MOTORPH-GROUP3-master\\src\\motor\\resources\\attendance_data.csv";
+    // Formatter for handling date formats (MM/dd/yyyy)
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
     /**
-     * Reads work hours data from a CSV file and returns it as a list of string arrays.
-     * 
-     * @return A list of string arrays containing parsed CSV data.
+     * Reads the CSV file containing employee work hours and returns the data as a list of string arrays.
+     * Each array represents a row from the file, split by commas.
+     *
+     * @return A list of string arrays containing attendance data.
      */
     public static List<String[]> readCSV() {
         List<String[]> data = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
             String line;
-            boolean firstLine = true; // Skip the header row
+            boolean firstLine = true;
             while ((line = reader.readLine()) != null) {
                 if (firstLine) {
-                    firstLine = false;
+                    firstLine = false; // Skip the header row
                     continue;
                 }
-                data.add(line.split(",")); // Split CSV line into array
+                data.add(line.split(","));
             }
         } catch (IOException e) {
             System.out.println("Error reading CSV file: " + e.getMessage());
@@ -50,12 +53,12 @@ public class WorkHoursService {
     }
 
     /**
-     * Checks if a given date string falls within the specified date range.
-     * 
-     * @param dateStr The date in string format (MM/dd/yyyy).
+     * Checks if a given date falls within a specified date range.
+     *
+     * @param dateStr   The date as a string in MM/dd/yyyy format.
      * @param startDate The start date of the range.
-     * @param endDate The end date of the range.
-     * @return True if the date is within the range, otherwise false.
+     * @param endDate   The end date of the range.
+     * @return true if the date is within the range (inclusive), false otherwise.
      */
     public static boolean isDateInRange(String dateStr, LocalDate startDate, LocalDate endDate) {
         LocalDate date = LocalDate.parse(dateStr, dateFormatter);
@@ -63,11 +66,11 @@ public class WorkHoursService {
     }
 
     /**
-     * Prompts the user for an employee ID and date range, then displays a summary 
-     * of the employee's total work hours, regular hours, overtime, and late minutes.
-     * 
-     * @param scanner The Scanner object for user input.
-     * @param DATE_FORMATTER The date formatter to parse input dates.
+     * Prompts the user to input an Employee ID and a date range, then displays the total work hours,
+     * regular hours, overtime hours, and late minutes for the given employee within that range.
+     *
+     * @param scanner        The scanner object for user input.
+     * @param DATE_FORMATTER The formatter for date parsing.
      */
     public static void viewWorkHours(Scanner scanner, DateTimeFormatter DATE_FORMATTER) {
         System.out.print("Enter Employee ID: ");
@@ -85,18 +88,17 @@ public class WorkHoursService {
         String endDateStr = scanner.nextLine();
 
         try {
-            // Parse user input into LocalDate objects
             LocalDate startDate = LocalDate.parse(startDateStr, DATE_FORMATTER);
             LocalDate endDate = LocalDate.parse(endDateStr, DATE_FORMATTER);
 
-            // Instance of WorkHoursManager to retrieve work hours
+            // Get work hours calculations from WorkHoursManager
             WorkHoursManager workHoursManager = new WorkHoursManager();
             double totalWorkHours = workHoursManager.calculateTotalWorkHours(employeeId, startDate, endDate);
             double totalRegularHours = workHoursManager.calculateTotalRegularHours(employeeId, startDate, endDate);
             double totalOvertimeHours = workHoursManager.calculateTotalOvertimeHours(employeeId, startDate, endDate);
             double totalLateMinutes = workHoursManager.calculateTotalLateMinutes(employeeId, startDate, endDate);
 
-            // Display work hours summary
+            // Display the results
             System.out.println("\n=== Work Hours Summary ===");
             System.out.println("Employee ID: " + employeeId);
             System.out.println("Total Work Hours: " + totalWorkHours + " hours");
