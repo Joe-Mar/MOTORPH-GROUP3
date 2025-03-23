@@ -3,7 +3,7 @@
  * 
  * This class represents a record of an employee's work hours for a specific date.
  * It stores details such as regular hours worked, overtime hours, late minutes, 
- * and deductions due to late arrivals.
+ * and deductions due to late arrival.
  */
 
 package motor.ph;
