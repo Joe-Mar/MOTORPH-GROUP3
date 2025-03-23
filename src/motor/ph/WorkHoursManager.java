@@ -3,7 +3,7 @@
  * 
  * This class is responsible for managing and computing employee work hours.
  * It reads work hour data from a CSV file, processes login/logout times, 
- * calculates regular and overtime hours, and applies late deductions.
+ * calculates regular and overtime hours, and applies late deduction.
  */
 
 package motor.ph;
