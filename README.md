@@ -43,3 +43,10 @@ HIT 1 (YES) IF YOU WANT TO RETURN.
 
 HIT 2 (NO) IF YOU WANT TO EXIT. 
 
+/////////////////////
+
+As of March 24, 2025. 
+
+Proper documentation and Class structure have been updated. 
+
+The project plan has been updated as well. 
