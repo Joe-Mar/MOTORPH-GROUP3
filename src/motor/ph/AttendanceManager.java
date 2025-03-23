@@ -17,63 +17,70 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The AttendanceManager class provides functionality to save and retrieve employee attendance records.
- * It stores data in a CSV file and allows filtering by employee ID.
+ * Manages attendance records, including reading from and writing to a CSV file
  */
 public class AttendanceManager {
-    
-    /**
-     * The file path where attendance records are stored.
-     */
-    private static final String FILE_NAME = "C:\\Users\\Nia\\Downloads\\MOTORPH-GROUP3-master\\MOTORPH-GROUP3-master\\src\\motor\\resources\\attendance_data.csv";
-    
+    // The file path where attendance records are stored.
+    private static final String FILE_NAME = "C:\\Users\\lasic\\OneDrive\\Documents\\NetBeansProjects\\MOTOR-PH\\src\\motor\\resources\\attendance_data.csv";
+
     /**
      * Saves an attendance record to the CSV file.
+     * This method appends a new entry to the existing file.
      *
-     * @param attendance The AttendanceRecord object containing employee attendance data.
+     * @param attendance The attendance record to be saved.
      */
     public static void saveAttendanceToCSV(AttendanceRecord attendance) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_NAME, true))) {
-            writer.println(attendance.getEmployeeId() + "," + attendance.getLastName() + "," + 
-                    attendance.getFirstName() + "," + attendance.getDate() + "," + 
-                    attendance.getLogin() + "," + attendance.getLogout());
+            // Writes the attendance details as a new line in the CSV file.
+            writer.println(attendance.getEmployeeId() + "," + attendance.getLastName() + "," + attendance.getFirstName() + "," +
+                    attendance.getDate() + "," + attendance.getLogin() + "," + attendance.getLogout());
         } catch (IOException e) {
             System.out.println("Error saving attendance data: " + e.getMessage());
         }
     }
-    
+
     /**
-     * Reads attendance records from the CSV file and returns them as a list.
+     * Reads attendance records from the CSV file and returns a list of AttendanceRecord objects.
+     * If the file does not exist or is empty, it returns an empty list.
      *
-     * @return A list of AttendanceRecord objects containing attendance data.
+     * @return A list of attendance records.
      */
     public static List<AttendanceRecord> readFromCSV() {
         List<AttendanceRecord> attendanceList = new ArrayList<>();
         File file = new File(FILE_NAME);
 
+        // Check if the file exists before attempting to read it.
         if (!file.exists()) {
             System.out.println("File not found: Returning empty list.");
-            return attendanceList;  // Return empty list if the file doesn't exist
+            return attendanceList;  // Return an empty list if the file doesn't exist.
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
-            boolean firstLine = true;
-            boolean isEmpty = true; // Flag to check if the file has any data
-            
+            boolean firstLine = true; // This flag is used to skip the header row.
+            boolean isEmpty = true; // This flag checks if the file contains any data.
+
             while ((line = reader.readLine()) != null) {
                 if (firstLine) { 
                     firstLine = false; 
-                    continue; // Skip header row
+                    continue; // Skip the header row.
                 }
+
+                isEmpty = false; // If we read at least one line, the file isn't empty.
+
+                String[] data = line.split(","); // Split the line into an array using commas.
                 
-                isEmpty = false; // If we read at least one line, file isn't empty
-                
-                String[] data = line.split(",");
+                // Check if the row has exactly 6 values (ensuring valid data).
                 if (data.length == 6) {
                     try {
+                        // Create a new AttendanceRecord object and add it to the list.
                         AttendanceRecord attendance = new AttendanceRecord(
-                            Integer.parseInt(data[0]), data[1], data[2], data[3], data[4], data[5]
+                            Integer.parseInt(data[0]), // Employee ID (integer)
+                            data[1], // Last Name
+                            data[2], // First Name
+                            data[3], // Date
+                            data[4], // Login Time
+                            data[5]  // Logout Time
                         );
                         attendanceList.add(attendance);
                     } catch (NumberFormatException e) {
@@ -81,32 +88,35 @@ public class AttendanceManager {
                     }
                 }
             }
-            
+
+            // If the file contains only the header row or is empty, return an empty list.
             if (isEmpty) {
                 System.out.println("CSV file is empty: Returning empty list.");
-                return new ArrayList<>(); // Explicitly return an empty list
+                return new ArrayList<>(); // Explicitly return an empty list.
             }
-            
+
         } catch (IOException e) {
             System.out.println("Error reading attendance data: " + e.getMessage());
         }
 
-        return attendanceList;
+        return attendanceList; // Return the list of attendance records.
     }
-    
+
     /**
-     * Retrieves attendance records for a specific employee based on their employee ID.
+     * Retrieves attendance records for a specific employee by their employee ID.
      *
      * @param empId The employee's ID.
-     * @return A list of AttendanceRecord objects for the specified employee.
+     * @return A list of AttendanceRecord objects that belong to the specified employee.
      */
     public static List<AttendanceRecord> getAttendanceByEmployeeId(int empId) {
         List<AttendanceRecord> filteredRecords = new ArrayList<>();
+
+        // Loop through the attendance list and filter records by employee ID.
         for (AttendanceRecord record : readFromCSV()) {
             if (record.getEmployeeId() == empId) {
                 filteredRecords.add(record);
             }
         }
-        return filteredRecords;
+        return filteredRecords; // Return the filtered list of attendance records.
     }
 }
