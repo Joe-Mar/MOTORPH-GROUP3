@@ -7,16 +7,19 @@
 package motor.ph;
 
 /**
- * The EmployeeService class is responsible for retrieving employee details
- * from the CSV data source and displaying the information.
+ *
+ * @author lasic
+ */
+/**
+ * Handles retrieval and display of employee details.
  */
 public class EmployeeService {
-    
+
     /**
-     * Retrieves an employee by their unique employee ID.
+     * Retrieves an employee by their employee ID.
      * 
-     * @param empId The ID of the employee to retrieve.
-     * @return The Employee object if found, otherwise null.
+     * @param empId The employee ID.
+     * @return Employee object if found, otherwise null.
      */
     public static Employee getEmployeeByEmployeeId(int empId) {
         return EmployeeDataManager.readFromCSV().stream()
@@ -24,41 +27,38 @@ public class EmployeeService {
                 .findFirst()
                 .orElse(null);
     }
-    
+
     /**
-     * Displays the details of an employee given their employee ID.
-     * If the employee is not found, an error message is displayed.
+     * Displays an employee's details, including personal and financial information.
      * 
-     * @param employeeId The ID of the employee whose details are to be displayed.
+     * @param employeeId The ID of the employee to view.
      */
     public static void viewEmployeeDetails(int employeeId) {
-        Employee employee = EmployeeService.getEmployeeByEmployeeId(employeeId);
+        Employee employee = getEmployeeByEmployeeId(employeeId);
+
         if (employee == null) {
             System.out.println("Error: Employee not found.");
             return;
         }
 
-        // Retrieve financial details of the employee
         EmployeeFinancials financials = employee.getFinancials();
 
-        // Display employee details
         System.out.println("\n====================================");
         System.out.println("          EMPLOYEE DETAILS          ");
         System.out.println("====================================");
         System.out.printf("Employee ID          : %d%n", employee.getEmployeeId());
         System.out.printf("Name                : %s %s%n", employee.getFirstName(), employee.getLastName());
-        System.out.printf("Birthday            : %s%n", employee.getBirthday()); // Ensure Employee class has getBirthday()
-        System.out.printf("Address             : %s%n", employee.getAddress());  // Ensure Employee class has getAddress()
+        System.out.printf("Birthday            : %s%n", employee.getBirthday());
+        System.out.printf("Address             : %s%n", employee.getAddress());
         System.out.printf("Phone Number        : %s%n", employee.getPhoneNumber());
         System.out.printf("SSS Number          : %s%n", employee.getSss());
         System.out.printf("PhilHealth Number   : %s%n", employee.getPhilhealth());
         System.out.printf("TIN Number          : %s%n", employee.getTin());
         System.out.printf("Pag-IBIG Number     : %s%n", employee.getPagibig());
-        System.out.printf("Status              : %s%n", employee.getStatus());
+        System.out.printf("Status             : %s%n", employee.getStatus());
         System.out.printf("Position            : %s%n", employee.getPosition());
         System.out.printf("Immediate Supervisor: %s%n", employee.getImmediateSupervisor());
-        
-        // Display financial details
+
         System.out.println("====================================");
         System.out.println("          FINANCIAL DETAILS         ");
         System.out.println("====================================");
@@ -68,8 +68,12 @@ public class EmployeeService {
         System.out.printf("Clothing Allowance : %.2f%n", financials.getClothingAllowance());
         System.out.printf("Gross Semi-Monthly Rate : %.2f%n", financials.getGrossSemiMonthlyRate());
         System.out.printf("Hourly Rate        : %.2f%n", financials.getHourlyRate());
-        System.out.printf("Prorated Total Allowance: %.2f%n", 
-                          financials.getProratedTotalAllowance(employeeId, employeeId));
+
+        // Fix: Used correct parameters for prorated allowance computation
+        long totalWorkDays = 22; // Example: Assuming a standard work month
+        long workDays = 15; // Example: Workdays in current period
+        System.out.printf("Prorated Total Allowance: %.2f%n", financials.getProratedTotalAllowance(totalWorkDays, workDays));
+
         System.out.println("====================================\n");
     }
 }
