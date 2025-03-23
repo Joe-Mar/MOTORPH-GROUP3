@@ -6,42 +6,32 @@
  */
 package motor.ph;
 
-/**
- * The AttendanceRecord class holds an employee's attendance details,
- * including date, login time, and logout time.
- */
 public class AttendanceRecord extends BaseEntity {
-    
-    /** The date of the attendance record. */
-    private String date;
-    
-    /** The login time of the employee. */
-    private String logInTime;
-    
-    /** The logout time of the employee. */
-    private String logOutTime;
+    private String date;       // The date of attendance (e.g., "2025-03-23").
+    private String logInTime;  // The time the employee logged in (e.g., "08:05 AM").
+    private String logOutTime; // The time the employee logged out (e.g., "05:10 PM").
 
     /**
-     * Constructs an AttendanceRecord object with employee details and attendance information.
-     * 
-     * @param employeeId The employee's ID.
-     * @param lastName The employee's last name.
-     * @param firstName The employee's first name.
-     * @param date The date of the attendance record.
-     * @param logInTime The login time of the employee.
+     * Constructor to create an attendance record.
+     *
+     * @param employeeId The unique ID of the employee.
+     * @param lastName   The last name of the employee.
+     * @param firstName  The first name of the employee.
+     * @param date       The date of the attendance record.
+     * @param logInTime  The login time of the employee.
      * @param logOutTime The logout time of the employee.
      */
     public AttendanceRecord(int employeeId, String lastName, String firstName, String date, String logInTime, String logOutTime) {
-        super(employeeId, lastName, firstName);
+        super(employeeId, lastName, firstName); // Calls the constructor of the BaseEntity class.
         this.date = date;
         this.logInTime = logInTime;
         this.logOutTime = logOutTime;
     }
 
     /**
-     * Gets the date of the attendance record.
-     * 
-     * @return The date as a string.
+     * Gets the attendance date.
+     *
+     * @return The date of the attendance record.
      */
     public String getDate() {
         return date;
@@ -49,8 +39,8 @@ public class AttendanceRecord extends BaseEntity {
 
     /**
      * Gets the login time of the employee.
-     * 
-     * @return The login time as a string.
+     *
+     * @return The time the employee logged in.
      */
     public String getLogin() {
         return logInTime;
@@ -58,15 +48,16 @@ public class AttendanceRecord extends BaseEntity {
 
     /**
      * Gets the logout time of the employee.
-     * 
-     * @return The logout time as a string.
+     *
+     * @return The time the employee logged out.
      */
     public String getLogout() {
         return logOutTime;
     }
 
     /**
-     * Prints the attendance details of the employee to the system output.
+     * Prints the details of the attendance record to the console.
+     * This method is useful for debugging or displaying records.
      */
     public void printAttendanceDetails() {
         System.out.println("Employee ID: " + employeeId);
@@ -79,7 +70,8 @@ public class AttendanceRecord extends BaseEntity {
     }
 
     /**
-     * Overrides the printDetails method from BaseEntity to print attendance details.
+     * Overrides the printDetails() method from the BaseEntity class.
+     * Calls printAttendanceDetails() to display attendance information.
      */
     @Override
     public void printDetails() {
